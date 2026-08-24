@@ -1,39 +1,47 @@
-// import React from 'react';
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { getStoredBook } from "../../utility/addToDB";
 import Book from "../Book/Book";
+
 const ReadList = () => {
-    // worst case or examples
-    const data = useLoaderData();    
-    const [readList , setReadList] = useState([])
-    useEffect(()=>{
-        const storedBookData = getStoredBook();
-        const convertedStoredBooks = storedBookData.map(id=>parseInt(id))
-        const myReadList = data.filter(book=>convertedStoredBooks.includes(book.bookId))
-        setReadList(myReadList);
-    },[])
+  // worst case
+  const [readList, setReadList] = useState([]);
+  const facKData = useLoaderData();
+  console.log("fackData", facKData);
+  useEffect(() => {
+    const storedBookData = getStoredBook();
+    const convertedStoredBooks = storedBookData.map((id) => parseInt(id));
+    // console.log(convertedStoredBooks);
+    const myReadList = facKData.filter((book) =>
+      convertedStoredBooks.includes(book.bookId),
+    );
+    // console.log(myReadList);
+    setReadList(myReadList);
+  }, []);
   return (
     <div>
       <Tabs>
         <TabList>
-          <Tab>Read book List</Tab>
-          <Tab>My whish List</Tab>
+          <Tab>Read List {} </Tab>
+          <Tab>Whish List</Tab>
         </TabList>
 
         <TabPanel>
-          <h2 className="text-blue-400 text-4xl font-bold text-center py-5">book I read {readList.length}</h2>
-
-          <div className="flex flex-wrap gap-x-50 gap-y-10 justify-center items-center py-20">
-            {
-            readList.map((b,index)=><Book key={index+1} book={b}></Book>)
-          }
+          <h2 className="text-2xl text-green-400 py-5 text-center">
+            {readList.length} Book I read
+          </h2>
+          <div className="flex w-11/12 mx-auto flex-wrap gap-20 py-10 bg-red-100 justify-around my-5 rounded-2xl">
+            {readList.map((book, index) => (
+              <Book key={index + 1} B book={book}></Book>
+            ))}
           </div>
         </TabPanel>
         <TabPanel>
-          <h2 className="text-emerald-400 text-4xl font-bold text-center py-5">Book I want to read</h2>
+          <h2 className="text-2xl text-blue-400 py-5 text-center">
+            Wish to read Book
+          </h2>
         </TabPanel>
       </Tabs>
     </div>
