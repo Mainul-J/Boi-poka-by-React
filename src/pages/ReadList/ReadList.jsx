@@ -8,6 +8,7 @@ import Book from "../Book/Book";
 const ReadList = () => {
   // worst case
   const [readList, setReadList] = useState([]);
+  const [sort ,setSort] =useState('') ;
   const facKData = useLoaderData();
   console.log("fackData", facKData);
   useEffect(() => {
@@ -20,8 +21,35 @@ const ReadList = () => {
     // console.log(myReadList);
     setReadList(myReadList);
   }, []);
+
+  const handleSort = (type) =>{
+      setSort(type)
+
+      if(type === 'pages'){
+      const sortByPage = [...readList].sort((a,b)=>a.totalPages - b.totalPages)
+      setReadList(sortByPage)
+      }
+      if(type === 'ratings'){
+       const sortByRatting = [...readList].sort((a,b)=>a.rating - b.rating)
+      setReadList(sortByRatting)
+      }
+
+  }
   return (
     <div>
+      <div>
+        <details className="dropdown">
+          <summary className="btn btn-info text-white m-1">Sort by : {sort?sort :''} </summary>
+          <ul className="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+            <li>
+              <a onClick={()=>handleSort('pages')}>pages</a>
+            </li>
+            <li>
+              <a onClick={()=>handleSort('ratings')}>ratings</a>
+            </li>
+          </ul>
+        </details>
+      </div>
       <Tabs>
         <TabList>
           <Tab>Read List {} </Tab>

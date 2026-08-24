@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const Book = ({ book }) => {
   const { bookName,review
-, bookId, author, image,category,rating } = book;
+, bookId, totalPages, author, image,category,rating } = book;
   // const data =use(bookPromise);
   // console.log(data);
   return (
@@ -17,6 +17,10 @@ const Book = ({ book }) => {
       className="rounded-xl h-[166px] w-auto" />
   </figure>
   <div className="card-body items-center text-center text-slate-700 bg-amber-200 ">
+    <div className="text-sm font-semibold flex gap-16">
+      <span><h5>Pages : {totalPages}</h5></span>
+      <span><h5>Rating : {rating}</h5></span>
+    </div>
     <div className="flex justify-around bg-white py-2 px-10 rounded-2xl gap-30">
       {/* author name  */}
       <div className="badge badge-outline">{category}</div>
